@@ -1,0 +1,3 @@
+export const UNIQUE_CONSTRAINT_ERROR_CODE = '23505';
+export const SIX_HOURS = 21600;
+export const TOKEN_EXPIRATION_PERIOD = SIX_HOURS;
