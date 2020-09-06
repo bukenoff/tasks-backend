@@ -23,10 +23,10 @@ export class Project extends BaseEntity {
   @Column()
   created_at: string;
 
-  @OneToMany(
-    type => Task,
-    task => task.project,
-    { eager: true },
-  )
-  tasks: Task[];
+  // @OneToMany(
+  //   type => Task,
+  //   task => task.project,
+  //   { eager: true },
+  // )
+  // tasks: Task[];
 }

@@ -39,13 +39,13 @@ export class Task extends BaseEntity {
   @Column()
   creatorId: number;
 
-  @ManyToOne(
-    type => Project,
-    project => project.tasks,
-    { eager: false },
-  )
-  project: Project;
+  //   @ManyToOne(
+  //     type => Project,
+  //     project => project.tasks,
+  //     { eager: false },
+  //   )
+  //   project: Project;
 
-  @Column()
-  projectId: number;
+  //   @Column()
+  //   projectId: number;
 }

@@ -6,11 +6,11 @@ export const typeorm_config: TypeOrmModuleOptions = {
   port: 5432,
   username: 'myusername',
   password: 'mypassword',
-  database: 'postgres',
+  database: 'mydatabase',
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
   synchronize: true,
   migrations: [__dirname + '/../migrations/*.{js,ts}'],
   cli: {
     migrationsDir: 'src/migrations',
-  }
+  },
 };

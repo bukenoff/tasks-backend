@@ -18,6 +18,7 @@ export class TaskRepository extends Repository<Task> {
     new_task.description = '';
     new_task.status = 'new';
     new_task.creator = user;
+    new_task.created_at = Date.now().toString();
     await new_task.save();
 
     delete new_task.creator; // no need to return user field in response
