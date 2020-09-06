@@ -5,7 +5,6 @@ import { SignUpDto } from './dto/sign-up.dto';
 import { SignInDto } from './dto/sign-in.dto';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './typings/jwt-payload.interface';
-import { User } from './user.entity';
 import { SignUpOkResponse } from './typings/sign-up-ok.response';
 
 @Injectable()
