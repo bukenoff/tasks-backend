@@ -5,6 +5,8 @@ import { SignUpDto } from './dto/sign-up.dto';
 import { SignInDto } from './dto/sign-in.dto';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './typings/jwt-payload.interface';
+import { User } from './user.entity';
+import { SignUpOkResponse } from './typings/sign-up-ok.response';
 
 @Injectable()
 export class AuthService {
@@ -13,11 +15,11 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signUp(signUpDto: SignUpDto): Promise<void> {
+  async signUp(signUpDto: SignUpDto): Promise<SignUpOkResponse> {
     return this.userRepository.signUp(signUpDto);
   }
 
-  async signIn(signInDto: SignInDto): Promise<{ access_token: string } | null> {
+  async signIn(signInDto: SignInDto): Promise<{ access_token: string }> {
     const user_name = await this.userRepository.validateUserPassword(signInDto);
 
     if (!user_name) {

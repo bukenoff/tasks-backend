@@ -9,10 +9,8 @@ import {
   UsePipes,
   ValidationPipe,
   ParseIntPipe,
-  Query,
   UseGuards,
 } from '@nestjs/common';
-import { DeleteResult } from 'typeorm';
 import { AuthGuard } from '@nestjs/passport';
 
 import { TasksService } from './tasks.service';
@@ -21,6 +19,11 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './task.entity';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
+import {
+  ApiOperation,
+  ApiOkResponse,
+  ApiCreatedResponse,
+} from '@nestjs/swagger';
 
 @Controller('tasks')
 @UseGuards(AuthGuard())
@@ -28,11 +31,19 @@ export class TasksController {
   constructor(private tasksService: TasksService) {}
 
   @Get()
+  @ApiOperation({ summary: 'Get all tasks to the user who created them' })
+  @ApiOkResponse({
+    description: 'Tasks succesfully created',
+    type: Task,
+    isArray: true,
+  })
   getTasks(@GetUser() user: User): Promise<Task[]> {
     return this.tasksService.getTasks(user);
   }
 
   @Get('/:id')
+  @ApiOperation({ summary: 'Get a task with specified id' })
+  @ApiOkResponse({ type: Task })
   getTaskById(
     @Param('id', ParseIntPipe) id: Task['id'],
     @GetUser() user: User,
@@ -41,6 +52,8 @@ export class TasksController {
   }
 
   @Post()
+  @ApiOperation({ summary: 'Create a task' })
+  @ApiCreatedResponse({ type: Task })
   @UsePipes(ValidationPipe)
   createTask(
     @Body() createTaskDto: CreateTaskDto,
@@ -50,14 +63,18 @@ export class TasksController {
   }
 
   @Delete('/:id')
+  @ApiOperation({ summary: 'Delete a task with specified id' })
+  @ApiOkResponse({ type: Task['id'] })
   deleteTask(
     @Param('id', ParseIntPipe) id: Task['id'],
     @GetUser() user: User,
-  ): Promise<DeleteResult> {
+  ): Promise<Task['id']> {
     return this.tasksService.deleteTask(id, user);
   }
 
   @Patch('/:id')
+  @ApiOperation({ summary: 'Updates task with specified id' })
+  @ApiOkResponse({ type: Task })
   updateTask(
     @Param('id', ParseIntPipe) id: Task['id'],
     @Body() updateTaskDto: UpdateTaskDto,

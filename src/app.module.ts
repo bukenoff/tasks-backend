@@ -10,7 +10,9 @@ import { ProjectsModule } from './projects/projects.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeorm_config),
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TasksModule,
     AuthModule,
     ProjectsModule,

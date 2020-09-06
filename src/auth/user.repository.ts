@@ -2,18 +2,22 @@ import { Repository, EntityRepository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 import { User } from './user.entity';
-import { SignUpDto } from './dto/sign-up.dto'; 
+import { SignUpDto } from './dto/sign-up.dto';
 import { handleUserSaveError } from './utils';
 import { SignInDto } from './dto/sign-in.dto';
 import { isEmail } from 'class-validator';
+import { SignUpOkResponse } from './typings/sign-up-ok.response';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-  private async hashPassword(password: User['password'], salt: string): Promise<string> {
+  private async hashPassword(
+    password: User['password'],
+    salt: string,
+  ): Promise<string> {
     return bcrypt.hash(password, salt);
   }
 
-  async signUp(signUpDto: SignUpDto): Promise<void> {
+  async signUp(signUpDto: SignUpDto): Promise<SignUpOkResponse> {
     const { name, email, password } = signUpDto;
 
     const salt = await bcrypt.genSalt();
@@ -28,9 +32,14 @@ export class UserRepository extends Repository<User> {
 
     try {
       await new_user.save();
-    } catch(e) {
+    } catch (e) {
       handleUserSaveError(e.code);
     }
+
+    return {
+      name: new_user.name,
+      email: new_user.email,
+    };
   }
 
   async validateUserPassword(signInDto: SignInDto): Promise<string | null> {
