@@ -2,6 +2,10 @@
 
 Another task management app
 
+## Prerequisites
+
+Yarn, Docker, Docker-Compose
+
 ## Installation
 
 ```bash
@@ -11,6 +15,9 @@ $ yarn install
 ## Running the app
 
 ```bash
+# run postgress in docker container
+$ docker-compose up -d
+
 # development
 $ yarn start
 
@@ -19,6 +26,13 @@ $ yarn start:dev
 
 # production mode
 $ yarn start:prod
+```
+
+## Test
+
+```bash
+# to stop docker container run
+$ docker-compose stop
 ```
 
 ## Test
