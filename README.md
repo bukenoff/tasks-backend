@@ -28,7 +28,7 @@ $ yarn start:dev
 $ yarn start:prod
 ```
 
-## Test
+## Stop docker container
 
 ```bash
 # to stop docker container run
