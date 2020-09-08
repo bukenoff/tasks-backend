@@ -23,8 +23,10 @@ import {
   ApiOperation,
   ApiOkResponse,
   ApiCreatedResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 
+@ApiTags('Tasks')
 @Controller('tasks')
 @UseGuards(AuthGuard())
 export class TasksController {

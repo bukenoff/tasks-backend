@@ -7,9 +7,11 @@ import {
   ApiCreatedResponse,
   ApiConflictResponse,
   ApiUnauthorizedResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import { SignUpOkResponse } from './typings/sign-up-ok.response';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
