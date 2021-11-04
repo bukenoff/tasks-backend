@@ -7,6 +7,17 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
 
   const options = new DocumentBuilder()
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token please',
+        in: 'header'
+      },
+      'JWT-auth',
+    )
     .setTitle('Tasks api')
     .setDescription('Another tasks managing app')
     .setVersion('1.0')

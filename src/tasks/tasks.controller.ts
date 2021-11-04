@@ -24,6 +24,7 @@ import {
   ApiOkResponse,
   ApiCreatedResponse,
   ApiTags,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 
 @ApiTags('Tasks')
@@ -34,6 +35,7 @@ export class TasksController {
 
   @Get()
   @ApiOperation({ summary: 'Get all tasks to the user who created them' })
+  @ApiBearerAuth('JWT-auth')
   @ApiOkResponse({
     description: 'Tasks succesfully created',
     type: Task,
@@ -45,6 +47,7 @@ export class TasksController {
 
   @Get('/:id')
   @ApiOperation({ summary: 'Get a task with specified id' })
+  @ApiBearerAuth('JWT-auth')
   @ApiOkResponse({ type: Task })
   getTaskById(
     @Param('id', ParseIntPipe) id: Task['id'],
@@ -56,6 +59,7 @@ export class TasksController {
   @Post()
   @ApiOperation({ summary: 'Create a task' })
   @ApiCreatedResponse({ type: Task })
+  @ApiBearerAuth('JWT-auth')
   @UsePipes(ValidationPipe)
   createTask(
     @Body() createTaskDto: CreateTaskDto,
@@ -66,6 +70,7 @@ export class TasksController {
 
   @Delete('/:id')
   @ApiOperation({ summary: 'Delete a task with specified id' })
+  @ApiBearerAuth('JWT-auth')
   @ApiOkResponse({ type: Task['id'] })
   deleteTask(
     @Param('id', ParseIntPipe) id: Task['id'],
@@ -76,6 +81,7 @@ export class TasksController {
 
   @Patch('/:id')
   @ApiOperation({ summary: 'Updates task with specified id' })
+  @ApiBearerAuth('JWT-auth')
   @ApiOkResponse({ type: Task })
   updateTask(
     @Param('id', ParseIntPipe) id: Task['id'],
